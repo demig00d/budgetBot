@@ -1,0 +1,8 @@
+tg-bot-token = ""
+
+database {
+  driver   = ""
+  url      = ""
+  user     = ""
+  password = ""
+}

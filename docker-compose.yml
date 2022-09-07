@@ -1,0 +1,27 @@
+version: "3.9"
+services:
+  bot:
+    image: budgetbot:0.1.0-SNAPSHOT
+    container_name: budgetbot
+    ports:
+      - 8080:8080
+    depends_on:
+      - db
+    networks:
+      - mynet
+
+  db:
+    container_name: db-for-testing
+    image: postgres:alpine
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    volumes:
+      - ${PWD}/init_db.sh:/docker-entrypoint-initdb.d/init-db-script.sh:ro
+    networks:
+      - mynet
+
+networks:
+  mynet:
+    driver: bridge

@@ -1,0 +1,10 @@
+.bloop
+.bsp
+.metals
+.env
+
+project/**/metals.sbt
+
+target
+
+src/main/resources/application.conf
