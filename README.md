@@ -3,6 +3,10 @@
 App and database:
 
 ```bash
+sbt docker:publishLocal
+```
+
+```bash
 docker-compose up
 ```
 
