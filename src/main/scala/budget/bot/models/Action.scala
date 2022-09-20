@@ -9,9 +9,9 @@ object Action:
   case object ShowHistory  extends Action
   case object ShowBudget   extends Action
   case object Ignore       extends Action
-  case class  ExecIncome(amount: Int, fullCommandText: String)      extends Action
-  case class  ExecExpenditure(amount: Int, fullCommandText: String) extends Action
-  case class  ClaimWrongInput(text: String)                         extends Action
+  case class  ExecIncome(amount: Int, fullCommandText: String)  extends Action
+  case class  ExecExpense(amount: Int, fullCommandText: String) extends Action
+  case class  ClaimWrongInput(text: String)                     extends Action
   case class  CalcListOfOperations(amountsTransactionInfos: List[(Int, String)]) extends Action
 
   def fromParse(text: String): Action =
@@ -47,13 +47,13 @@ object Action:
         ClaimWrongInput(errorText)
 
   def fromTransactionCommand(text: String): Action =
-    def toExecIncomeOrExpenditure(
+    def toExecIncomeOrExpense(
         moneyflowType: String,
         amount: Int,
       ) =
       moneyflowType match
-        case "/доход" => ExecIncome(amount, text)
-        case "/расход" => ExecExpenditure(amount, text)
+        case "/income" => ExecIncome(amount, text)
+        case "/expense" => ExecExpense(amount, text)
         case _ => Ignore
 
     val moneyflowtypeAmountDescription = text.split(" ", 3)
@@ -61,7 +61,7 @@ object Action:
       case 3 =>
         moneyflowtypeAmountDescription(1).toIntOption match
           case Some(amount) =>
-            toExecIncomeOrExpenditure(
+            toExecIncomeOrExpense(
               moneyflowtypeAmountDescription(0),
               amount,
             )

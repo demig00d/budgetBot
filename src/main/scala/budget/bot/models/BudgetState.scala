@@ -24,8 +24,8 @@ final case class BudgetState(
 
     val formattedTransactionInfo =
       transactionInfo
-        .replace("/доход ", "+")
-        .replace("/расход ", " -")
+        .replace("/income ", "+")
+        .replace("/expense ", " -")
         .replace("\n", s"\n[$operationDateTime] ")
 
     val oldHistory =

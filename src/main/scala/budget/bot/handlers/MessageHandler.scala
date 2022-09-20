@@ -54,7 +54,7 @@ object MessageHandlerImpl:
                 SendText(chatId, BudgetState.showBalance(newBalance))
               }
 
-          case Action.ExecExpenditure(amount, transactionInfo) =>
+          case Action.ExecExpense(amount, transactionInfo) =>
             budgetStateService
               .updateBalanceAndHistory(
                 chatId,
