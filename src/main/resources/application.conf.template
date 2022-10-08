@@ -1,5 +1,11 @@
 tg-bot-token = ""
 
+webhook {
+  url = ""
+  port = 
+  host = ""
+}
+
 database {
   driver   = ""
   url      = ""

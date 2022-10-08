@@ -84,8 +84,9 @@ object BotApplication extends IOApp {
     val helpMessage = CommandParser.formHelpMessage
     given messageHandler: MessageHandler[F] = MessageHandlerImpl.make[F](helpMessage)
 
-    val budgetBot = Bot.make
+    val budgetBot = 
+      Bot.make(baseUrl = config.webhook.url, path = config.tgBotToken)
 
-    budgetBot.start().as(ExitCode.Success)
+    budgetBot.start(config.webhook.port, config.webhook.host).useForever.as(ExitCode.Success)
 
 }

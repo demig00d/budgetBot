@@ -7,7 +7,7 @@ import cats.implicits.*
 import org.typelevel.log4cats.StructuredLogger
 
 import telegramium.bots.{ ChatIntId, Message, User, CallbackQuery }
-import telegramium.bots.high.{ Api, LongPollBot, Methods }
+import telegramium.bots.high.{ Api, WebhookBot, Methods }
 import telegramium.bots.high.implicits.methodOps
 
 import handlers.MessageHandler
@@ -15,12 +15,15 @@ import models.*
 
 object Bot:
   def make(
+      baseUrl: String,
+      path: String,
+    )(
       using
       api: Api[IO],
       messageHandler: MessageHandler[IO],
       log: StructuredLogger[IO],
     ) =
-    new LongPollBot[IO](api):
+    new WebhookBot[IO](api, s"$baseUrl/$path", path):
       override def onMessage(message: Message): IO[Unit] =
         message
           .text
